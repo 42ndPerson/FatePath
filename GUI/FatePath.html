@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style media="screen" type="text/css">
+      #mainCanvas {
+        border: 1px;
+        solid black;
+
+        /*background-size: 100% 100%;*/
+      }
+      .canvas {
+        background: url('FieldView.png');/* no-repeat center center fixed;*/
+        background-size: contain;
+      }
+      .page {
+        margin: 0px 0
+      }
+      .wrapper {
+        max-width: 1160px;
+        margin: 0 auto;
+        position: relative;
+        padding: 0 20px;
+        min-height: 600px;
+      }
+      .content-wrapper {
+        float: left;
+        width: 100%;
+      }
+
+      /* Content and Sidebar */
+      .content {
+        margin-right: 220px;
+        clear: both;
+        overflow: auto;
+        background: rgba(95,95,95,1);
+        min-height: 400px;
+      }
+      .sidebar {
+        position: relative;
+        width: 220px;
+        margin-left: -220px;
+        float: right;
+        overflow: hidden;
+        background: rgba(240,240,240, 1);
+        color: #eee;
+        min-height: 694px;
+      }
+      .bottombar {
+        position: relative;
+        min-height: 270px;
+        margin-top: -4px;
+        float: bottom;
+        overflow: auto;
+        background: rgba(210,210,210, 1);
+        color: #eee;
+        white-space: nowrap;
+
+        .inputGroup {
+          display: inline-block;
+          width: 20%;
+        }
+      }
+      .list {
+        color:Black;
+        padding-left: 0;
+        list-style-type: none;
+      }
+    </style>
+  </head>
+  <body onload="canvasSetUpAndMaintenance();" onresize="canvasSetUpAndMaintenance();">
+
+    <div class="page" id="page">
+      <div class="wrapper" id="wrapper">
+        <div class="content-wrapper" id="content-wrapper">
+          <div class="content" id="content">
+            <div class="canvas", id="canvas">
+              <canvas id="mainCanvas" onmousedown="mouseDown(event);" onmousemove="mouseMove(event);" onmouseup="mouseUp();">
+                Your browser does not support the HTML canvas tag.
+              </canvas>
+            </div>
+            <div class="bottombar" id="bottombar">
+                <div class="inputGroup">
+                  <h3 style="color:Black; padding: 3px 15px;">Endpoints</h3>
+                  <form style="padding: 0px 15px;">
+                    <label for="startX" style="color:Black">Start (x):</label>
+                    <input type="number" name="startX" id="startX" step="0.01" size="75" onkeyup="updateValues()"><br>
+                    <label for="startY" style="color:Black">Start (y):</label>
+                    <input type="number" name="startY" id="startY" step="0.01" size="75" onkeyup="updateValues()"><br>
+                    <label for="endX" style="color:Black">End (x):</label>
+                    <input type="number" name="endX" id="endX" step="0.01" size="75" onkeyup="updateValues()"><br>
+                    <label for="endY" style="color:Black">End (y):</label>
+                    <input type="number" name="endY" id="endY" step="0.01" size="75" onkeyup="updateValues()">
+                  </form>
+                </div>
+
+                <div class="inputGroup">
+                  <h3 style="color:Black; padding: 3px 15px;">Control Points</h3>
+                  <form style="padding: 0px 15px;">
+                    <label for="width" style="color:Black">Point 1 (x):</label>
+                    <input type="number" name="p1X" id="p1X" step="0.01" size="75" onkeyup="updateValues()"> <br>
+                    <label for="width" style="color:Black">Point 1 (y):</label>
+                    <input type="number" name="p1Y" id="p1Y" step="0.01" size="75" onkeyup="updateValues()"> <br>
+                    <label for="width" style="color:Black">Point 2 (x):</label>
+                    <input type="number" name="p2X" id="p2X" step="0.01" size="75" onkeyup="updateValues()"> <br>
+                    <label for="width" style="color:Black">Point 2 (y):</label>
+                    <input type="number" name="p2Y" id="p2Y" step="0.01" size="75" onkeyup="updateValues()">
+                  </form>
+                </div>
+
+                <div class="inputGroup">
+                  <h3 style="color:Black; padding: 3px 15px;">Extra</h3>
+                  <form style="padding: 0px 15px 10px;">
+                    <label for="rotation" style="color:Black">Power:</label>
+                    <input type="number" name="power" id="power" onkeyup="updateValues()">
+                    <p></p>
+                    <input type="checkbox" name="reverse" id="reverseDirection" onclick="updateValues()">
+                    <label for="reverse" style="color:Black">Reverse Direction</label>
+                  </form>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar" id="sidebar">
+            <h3 style="color:Black; padding: 0px 15px;">Field</h3>
+            <form style="padding: 0px 15px;">
+              <label for="width" style="color:Black">Width (x axis; height calculated by image dimensions):</label>
+              <input type="number" id="fieldWidth" name="width" step="0.01" size="100" value="10" onkeyup="updateValues()">
+            </form>
+            <h3 style="color:Black; padding: 0px 15px;">Spline Paths</h3>
+            <ul id="splinePathsList" class="list"></ul>
+            <button type="button" name="addNewSplinePath" onclick="addSplinePath()">+ Add New Spline Path</button>
+            <button type="button" name="downloadCurrentSplinePath" onclick="downloadSpline()">Download Current Spline Path</button>
+            <h3 style="color:Black; padding: 0px 15px;">Bezier Paths</h3>
+            <ul id="bezierPathsList" class="list"></ul>
+            <button type="button" name="addNewBezierPath" onclick="addBezierPath()">+ Add New Bezier Path</button>
+        </div>
+      </div>
+    </div>
+
+
+    <script type="text/javascript" src="CanvasManager.js"></script>
+
+  </body>
+</html>
