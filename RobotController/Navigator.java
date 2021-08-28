@@ -23,6 +23,9 @@ public class Navigator {
     public void toggleTurningState() {
       this.isTurning = this.isTurning ? false : true;
     }
+    public void setTurningState(boolean newTurningState) {
+      this.isTurning = newTurningState;
+    }
 
     //Getter
     public int getPathComponent() {
@@ -45,34 +48,40 @@ public class Navigator {
     private BezierSplinePath path;
     private Navigator.NavigationState navState = new Navigator.NavigationState();
 
+    private PIDController.PIDInfo pidInfo;
+
     //Constructors
-    public TankDrive(double wheelbase, TankWheelPowers wheelPowers) {
+    public TankDrive(double wheelbase, TankWheelPowers wheelPowers, PIDController.PIDInfo pidInfo) {
       this.wheelbase = wheelbase;
       this.wheelPowers = wheelPowers;
       this.rotation = 0;
       this.position = new Vector2d(0,0);
       this.path = null;
+      this.pidInfo = pidInfo;
     }
-    public TankDrive(double wheelbase, TankWheelPowers wheelPowers, double rotation, Vector2d position) {
+    public TankDrive(double wheelbase, TankWheelPowers wheelPowers, double rotation, Vector2d position, PIDController.PIDInfo pidInfo) {
       this.wheelbase = wheelbase;
       this.wheelPowers = wheelPowers;
       this.rotation = rotation;
       this.position = position;
       this.path = null;
+      this.pidInfo = pidInfo;
     }
-    public TankDrive(double wheelbase, TankWheelPowers wheelPowers, BezierSplinePath path) {
+    public TankDrive(double wheelbase, TankWheelPowers wheelPowers, BezierSplinePath path, PIDController.PIDInfo pidInfo) {
       this.wheelbase = wheelbase;
       this.wheelPowers = wheelPowers;
       this.rotation = 0;
       this.position = new Vector2d(0,0);
       this.path = path;
+      this.pidInfo = pidInfo;
     }
-    public TankDrive(double wheelbase, TankWheelPowers wheelPowers, double rotation, Vector2d position, BezierSplinePath path) {
+    public TankDrive(double wheelbase, TankWheelPowers wheelPowers, double rotation, Vector2d position, BezierSplinePath path, PIDController.PIDInfo pidInfo) {
       this.wheelbase = wheelbase;
       this.wheelPowers = wheelPowers;
       this.rotation = rotation;
       this.position = position;
       this.path = path;
+      this.pidInfo = pidInfo;
     }
 
     //Setter and Getter Methods
@@ -136,21 +145,41 @@ public class Navigator {
     }
     public void update(TankWheelMovement wheelMovement) {
       final double distanceEstimator = 0.0001;
+      PIDController pidController;
 
-      if (navState.getTurningState()) {
-        navState.toggleTurningState();
+      //Work through steps on path
+      if (this.navState.getTurningState()) { //--Look into making it navState.isTurning()
+        pidController.update(this.path.getPaths()[this.navState.pathComponent].getAnchor1Angle()-this.path.getPaths()[this.navState.pathComponent-1].getAnchor2Angle());  //Update with new error info
+        this.wheelPowers = (new TankWheelPowers(-1,1)).multiply(pidController.getResponce); //--Output range of PID might by wrong
       } else {
         double distanceTraveled = this.odometryPosUpdate(wheelMovement);
         double estimatedDistanceTraveled = 0;
 
         while(true) {
-          if (Math.abs(distanceTraveled - estimatedDistanceTraveled) > distanceEstimator/1.5) {
+          if (distanceTraveled - estimatedDistanceTraveled < 0) {
             navState.incrementCurveT(distanceEstimator);
             estimatedDistanceTraveled += this.path.getPaths()[navState.getPathComponent()].getPoint(navState.getCurveT()-distanceEstimator).getDistanceTo(this.path.getPaths()[navState.getPathComponent()].getPoint(navState.getCurveT()));
           } else {
+            if (this.path.hasPathAt(this.navState.pathComponent+1)) { //Check that there is another path to turn to
+              this.navState.setTurningState(true);
+            }
+
             break;
           }
         }
+
+        this.turnAtRadiusAtPower(
+          this.path.getPaths()[this.navState.getPathComponent()].getRadiusOfCurvature(this.navState.curveT)
+          this.path.getPaths()[this.navState.getPathComponent()].getPower()
+        );
+      }
+
+      //Work to next path
+      if (this.navState.curveT >= 1) {
+        this.navState.incrementPathComponent();
+        this.navState.zeroCurveT();
+        this.navState.setTurningState(true);
+        pidController = new PIDController(this.pidInfo, this.path.getPaths()[this.navState.pathComponent].getAnchor1Angle()-this.path.getPaths()[this.navState.pathComponent-1].getAnchor2Angle());  //Initialize a PIDController with fresh error info
       }
     }
     public void testUpdate() {
@@ -183,6 +212,10 @@ public class Navigator {
       public void set(double left, double right) {
         this.left = left;
         this.right = right;
+      }
+      public void multiply(double factor) {
+        this.left *= factor;
+        this.right *= factor;
       }
     }
     public static class TankWheelPowers extends TankWheelDescriptors {

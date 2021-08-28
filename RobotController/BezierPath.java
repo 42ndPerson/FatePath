@@ -150,6 +150,12 @@ public class BezierPath {
 
     return fullCircleAngle;
   }
+  public double getAnchor2Angle() {
+    double slopeToAngle = Math.PI/2 - Math.atan((this.anchor2.getY()-this.control2.getY())/Math.abs(this.anchor2.getX()-this.control2.getX())); //Get raw angle and convert to north as zero clockwise positive
+    double fullCircleAngle = (this.anchor2.getX() - this.control2.getX() < 0 ? -1 : 1) * slopeToAngle; //Account for slopes headed to the left
+
+    return fullCircleAngle;
+  }
 
   //Debug methods
   public void print() {

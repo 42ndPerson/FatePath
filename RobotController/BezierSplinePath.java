@@ -26,4 +26,7 @@ class BezierSplinePath {
   public BezierPath[] getPaths() {
     return this.paths;
   }
+  public boolean hasPathAt(int index) {
+    return (this.paths.length < index);
+  }
 }
