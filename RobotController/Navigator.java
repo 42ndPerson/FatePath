@@ -49,6 +49,7 @@ public class Navigator {
     private Navigator.NavigationState navState = new Navigator.NavigationState();
 
     private PIDController.PIDInfo pidInfo;
+    private PIDController pidController;
 
     //Constructors
     public TankDrive(double wheelbase, TankWheelPowers wheelPowers, PIDController.PIDInfo pidInfo) {
@@ -145,33 +146,38 @@ public class Navigator {
     }
     public void update(TankWheelMovement wheelMovement) {
       final double distanceEstimator = 0.0001;
-      PIDController pidController;
 
-      //Work through steps on path
-      if (this.navState.getTurningState()) { //--Look into making it navState.isTurning()
-        pidController.update(this.path.getPaths()[this.navState.pathComponent].getAnchor1Angle()-this.path.getPaths()[this.navState.pathComponent-1].getAnchor2Angle());  //Update with new error info
-        this.wheelPowers = (new TankWheelPowers(-1,1)).multiply(pidController.getResponce); //--Output range of PID might by wrong
-      } else {
-        double distanceTraveled = this.odometryPosUpdate(wheelMovement);
-        double estimatedDistanceTraveled = 0;
+      if (this.path != null) { //Check that there is currently a path to navigate
+        //Work through steps on path
+        if (this.navState.getTurningState()) { //--Look into making it navState.isTurning()
+          this.pidController.update(this.path.getPaths()[this.navState.pathComponent].getAnchor1Angle()-this.path.getPaths()[this.navState.pathComponent-1].getAnchor2Angle());  //Update with new error info
+          this.wheelPowers = (new TankWheelPowers(-1,1)).multiply(pidController.getResponce); //--Output range of PID might by wrong
+        } else {
+          double distanceTraveled = this.odometryPosUpdate(wheelMovement);
+          double estimatedDistanceTraveled = 0;
 
-        while(true) {
-          if (distanceTraveled - estimatedDistanceTraveled < 0) {
-            navState.incrementCurveT(distanceEstimator);
-            estimatedDistanceTraveled += this.path.getPaths()[navState.getPathComponent()].getPoint(navState.getCurveT()-distanceEstimator).getDistanceTo(this.path.getPaths()[navState.getPathComponent()].getPoint(navState.getCurveT()));
-          } else {
-            if (this.path.hasPathAt(this.navState.pathComponent+1)) { //Check that there is another path to turn to
-              this.navState.setTurningState(true);
+          while(true) {
+            if (distanceTraveled - estimatedDistanceTraveled < 0) {
+              navState.incrementCurveT(distanceEstimator);
+              estimatedDistanceTraveled += this.path.getPaths()[navState.getPathComponent()].getPoint(navState.getCurveT()-distanceEstimator).getDistanceTo(this.path.getPaths()[navState.getPathComponent()].getPoint(navState.getCurveT()));
+            } else {
+              if (this.path.hasPathAt(this.navState.pathComponent+1)) { //Check that there is another path to turn to
+                this.navState.setTurningState(true);
+              } else { //Path has been navigated
+                this.path = null;
+              }
+
+              break;
             }
-
-            break;
           }
-        }
 
-        this.turnAtRadiusAtPower(
-          this.path.getPaths()[this.navState.getPathComponent()].getRadiusOfCurvature(this.navState.curveT)
-          this.path.getPaths()[this.navState.getPathComponent()].getPower()
-        );
+          this.turnAtRadiusAtPower(
+            this.path.getPaths()[this.navState.getPathComponent()].getRadiusOfCurvature(this.navState.curveT)
+            this.path.getPaths()[this.navState.getPathComponent()].getPower()
+          );
+        }
+      } else { //Stop monvement in case of no path
+        this.wheelPowers = new TankWheelPowers(0,0);
       }
 
       //Work to next path
@@ -179,7 +185,7 @@ public class Navigator {
         this.navState.incrementPathComponent();
         this.navState.zeroCurveT();
         this.navState.setTurningState(true);
-        pidController = new PIDController(this.pidInfo, this.path.getPaths()[this.navState.pathComponent].getAnchor1Angle()-this.path.getPaths()[this.navState.pathComponent-1].getAnchor2Angle());  //Initialize a PIDController with fresh error info
+        this.pidController = new PIDController(this.pidInfo, this.path.getPaths()[this.navState.pathComponent].getAnchor1Angle()-this.path.getPaths()[this.navState.pathComponent-1].getAnchor2Angle());  //Initialize a PIDController with fresh error info
       }
     }
     public void testUpdate() {
