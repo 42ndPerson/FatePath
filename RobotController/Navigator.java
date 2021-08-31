@@ -141,8 +141,6 @@ public class Navigator {
 
       this.wheelPowers.set(left, right);
       System.out.println(left + " " + right);
-      /*System.out.println("Left: " + String.valueOf(left));
-      System.out.println("Right: " + String.valueOf(right));*/
     }
     public void update(TankWheelMovement wheelMovement) {
       final double distanceEstimator = 0.0001;
@@ -201,8 +199,8 @@ public class Navigator {
 
     //Sub Classes
     private static class TankWheelDescriptors {
-      public double left;
-      public double right;
+      private double left;
+      private double right;
 
       //Constructors
       public TankWheelDescriptors() {
@@ -214,11 +212,19 @@ public class Navigator {
         this.right = right;
       }
 
-      //Methods
+      //Getter and Setter Methods
+      public double getLeft() {
+        return this.left;
+      }
+      public double getRight() {
+        return this.right;
+      }
       public void set(double left, double right) {
         this.left = left;
         this.right = right;
       }
+
+      //Calculation Methods
       public void multiply(double factor) {
         this.left *= factor;
         this.right *= factor;
@@ -234,12 +240,12 @@ public class Navigator {
     }
 
   }
-  /*
+
   public class MecanumDirve {
     double horizontalWheelBase;
     MecanumWheelPowers wheelPowers;
 
-    public init(double horizontalWheelBase) {
+    public MecanumDrive(double horizontalWheelBase) {
       this.horizontalWheelBase = horizontalWheelBase;
       this.wheelPowers = MecanumWheelPowers();
     }
@@ -253,21 +259,53 @@ public class Navigator {
       this.wheelPowers.frontRight, this.wheelPowers.backLeft = positiveAxis;
     }
 
+    private static class MecanumWheelDescriptors {
+      private double frontLeft;
+      private double frontRight;
+      private double backLeft;
+      private double backRight;
 
-  }
+      //Constructors
+      public MecanumWheelDescriptors() {
+        this.frontLeft = 0;
+        this.frontRight = 0;
+        this.backLeft = 0;
+        this.backRight = 0;
+      }
+      public MecanumWheelDescriptors(double frontLeft, double frontRight, double backLeft, double backRight) {
+        this.frontLeft = frontLeft;
+        this.frontRight = frontRight;
+        this.backLeft = backLeft;
+        this.backRight = backRight;
+      }
 
-  private class MecanumWheelPowers {
-    public double frontLeft;
-    public double frontRight;
+      //Getter and Setter Methods
+      public double getFrontLeft() {
+        return this.frontLeft;
+      }
+      public double getFrontRight() {
+        return this.frontRight;
+      }
+      public double getBackLeft() {
+        return this.backLeft;
+      }
+      public double getBackRight() {
+        return this.backRight;
+      }
+      public void set(double frontLeft, double frontRight, double backLeft, double backRight) {
+        this.frontLeft = frontLeft;
+        this.frontRight = frontRight;
+        this.backLeft = backLeft;
+        this.backRight = backRight;
+      }
 
-    public double backLeft;
-    public double backRight;
-
-    public init() {
-      frontLeft = 0;
-      frontRight = 0;
-      backLeft = 0;
-      backRight = 0;
+      //Calculation Methods
+      public void multiply(double factor) {
+        this.frontLeft *= factor;
+        this.frontRight *= factor;
+        this.backLeft *= factor;
+        this.backRight *= factor;
+      }
     }
-  }*/
+  }
 }
