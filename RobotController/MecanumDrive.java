@@ -66,10 +66,10 @@ public class MecanumDrive {
   }
   public static class MecanumWheelPowers extends MecanumWheelDescriptors {
     public MecanumWheelPowers() { super() };
-    public MecanumWheelPowers(double frontLeft, double frontRight, double backLeft, double backRight) { super(frontLeft, frontRight, backLeft, backRight) };
+    public MecanumWheelPowers(double frontLeft, double frontRight, double backLeft, double backRight) { super(frontLeft, frontRight, backLeft, backRight); }
   }
   public static class MecanumWheelMovement extends MecanumWheelDescriptors {
     public MecanumWheelMovement() { super() };
-    public MecanumWheelMovement(double frontLeft, double frontRight, double backLeft, double backRight) { super(frontLeft, frontRight, backLeft, backRight) };
+    public MecanumWheelMovement(double frontLeft, double frontRight, double backLeft, double backRight) { super(frontLeft, frontRight, backLeft, backRight); }
   }
 }
