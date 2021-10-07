@@ -5,9 +5,11 @@ class NavigatorTests {
     Vector2d a = new Vector2d(5,12.19);
     Vector2d b = new Vector2d(1,0);
 
+    b.rotateAround(new Vector2d(0,0), Math.PI/2);
+    b.print();
     //Vector2d.biasedAverage(a, b, 0.87).print();
 
-    BezierPath path1 = new BezierPath(
+    /*BezierPath path1 = new BezierPath(
       new Vector2d(5,12.19),
       new Vector2d(6.3593,4.7058),
       new Vector2d(4.8425,0.8452),
@@ -48,7 +50,7 @@ class NavigatorTests {
     );
     System.out.println(pathA.getAnchor1Angle());
     pathA.getFirstDerivative(0).print();
-
+    */
     /*while (true) {
       tank.testUpdate();
     }*/
