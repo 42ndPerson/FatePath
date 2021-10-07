@@ -49,7 +49,7 @@ public class DrawableObject {
 
     //Setter Methods
     public void setCenterPos(Vector2d centerPosition) { this.centerPosition = centerPosition; }
-    public void setRoation(double rotation) { this.rotation = rotation; }
+    public void setRotation(double rotation) { this.rotation = rotation; }
     public void setRelativePoints(Vector2d[] relativePoints) { this.relativePoints = relativePoints; }
     public void setIsFilled(boolean isFilled) { this.isFilled = isFilled; }
 }
