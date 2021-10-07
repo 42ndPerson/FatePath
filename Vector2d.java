@@ -80,6 +80,7 @@ public class Vector2d {
         new double[]{centerPoint.getX(),centerPoint.getY(),1}
       }
     );
+    this.print();
   }
   public void translateDistAtAngle(double distance, double radians) {
     this.translate( //Translate coordinates so centerPoint is at the origin
