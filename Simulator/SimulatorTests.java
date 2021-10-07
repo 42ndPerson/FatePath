@@ -13,13 +13,13 @@ public class SimulatorTests {
         DrawableObject square = new DrawableObject(
             new Vector2d(50,50),
             new Vector2d[]{
+                new Vector2d(7,7),
                 new Vector2d(14,14),
-                new Vector2d(-14,14),
-                new Vector2d(-14,-14),
-                new Vector2d(14,-14)
+                new Vector2d(21,21),
+                new Vector2d(28,28)
             },
             0.0,
-            true
+            false
         );
         canvas.appendToDrawableStack(square);
         
