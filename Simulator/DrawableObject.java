@@ -25,6 +25,27 @@ public class DrawableObject {
         return absolutePoints;
     }
     public boolean isFilled() { return this.isFilled; }
+    public int[] getXCoords() {
+        Vector2d[] absolutePoints = this.getPoints();
+        int[] xCoords = new int[this.relativePoints.length];
+
+        for (int i = 0; i < absolutePoints.length; i++) {
+            xCoords[i] = absolutePoints[i].getX();
+        }
+
+        return xCoords;
+    }
+    public int[] getYCoords() {
+        Vector2d[] absolutePoints = this.getPoints();
+        int[] yCoords = new int[this.relativePoints.length];
+
+        for (int i = 0; i < absolutePoints.length; i++) {
+            yCoords[i] = absolutePoints[i].getY();
+        }
+
+        return yCoords;
+    }
+    public int getPointCount() { return this.relativePoints.length; }
 
     //Setter Methods
     public void setCenterPos(Vector2d centerPosition) { this.centerPosition = centerPosition; }
