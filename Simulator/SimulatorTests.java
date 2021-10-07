@@ -18,7 +18,7 @@ public class SimulatorTests {
                 new Vector2d(3*21,3*21),
                 new Vector2d(3*28,3*28)
             },
-            0.5,
+            3.0,
             false
         );
         canvas.appendToDrawableStack(square);
