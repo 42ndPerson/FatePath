@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.awt.*;
 import javax.swing.*;
 
@@ -11,7 +12,7 @@ public class Canvas extends JPanel {
                 g.drawPolygon(drawable.getYCoords(), drawable.getXCoords(), drawable.getPointCount()); //X and Y are flipped to match coordinates of GUI
             }
             else {
-                g.drawPolyLine(drawable.getYCoords(), drawable.getXCoords(), drawable.getPointCount()); //X and Y are flipped to match coordinates of GUI
+                g.drawPolyline(drawable.getYCoords(), drawable.getXCoords(), drawable.getPointCount()); //X and Y are flipped to match coordinates of GUI
             }
         }
     }
