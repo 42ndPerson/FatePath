@@ -30,8 +30,6 @@ public class SimulatorTests {
         for (double i = 0; i < 20; i += 0.005) {
             canvas.getDrawableStack()[0].setRotation(i);
 
-            frame.invalidate();
-            frame.validate();
             frame.repaint();
         }
     }
