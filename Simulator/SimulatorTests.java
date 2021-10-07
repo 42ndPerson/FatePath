@@ -11,7 +11,7 @@ public class SimulatorTests {
 
         Canvas canvas = new Canvas();
         DrawableObject square = new DrawableObject(
-            new Vector2d(50,50),
+            new Vector2d(200,200),
             new Vector2d[]{
                 new Vector2d(3*7,3*7),
                 new Vector2d(3*14,3*14),
