@@ -3,7 +3,7 @@ import java.lang.Math;
 class NavigatorTests {
   public static void main(String[] args) {
     Vector2d a = new Vector2d(5,12.19);
-    Vector2d b = new Vector2d(1,0);
+    Vector2d b = new Vector2d(7,7);
 
     b.rotateAround(new Vector2d(0,0), Math.PI/2);
     b.print();
