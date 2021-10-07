@@ -30,7 +30,7 @@ public class DrawableObject {
         int[] xCoords = new int[this.relativePoints.length];
 
         for (int i = 0; i < absolutePoints.length; i++) {
-            xCoords[i] = absolutePoints[i].getX();
+            xCoords[i] = (int)absolutePoints[i].getX();
         }
 
         return xCoords;
@@ -40,7 +40,7 @@ public class DrawableObject {
         int[] yCoords = new int[this.relativePoints.length];
 
         for (int i = 0; i < absolutePoints.length; i++) {
-            yCoords[i] = absolutePoints[i].getY();
+            yCoords[i] = (int)absolutePoints[i].getY();
         }
 
         return yCoords;
