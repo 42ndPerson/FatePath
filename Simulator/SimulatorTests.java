@@ -14,9 +14,9 @@ public class SimulatorTests {
             new Vector2d(200,200),
             new Vector2d[]{
                 new Vector2d(3*7,3*7),
-                new Vector2d(3*14,3*14),
-                new Vector2d(3*21,3*21),
-                new Vector2d(3*28,3*28)
+                new Vector2d(-3*7,3*7),
+                new Vector2d(-3*7,-3*7),
+                new Vector2d(3*7,-3*7)
             },
             3.0,
             false
