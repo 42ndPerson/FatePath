@@ -21,7 +21,7 @@ public class DrawableObject {
         }
 
         for (int i = 0; i < absolutePoints.length; i++) {
-            absolutePoints[i].rotateAround(new Vector2d(0,0), this.rotation); //Rotate points to reflect object rotation
+            absolutePoints[i].rotateAround(new Vector2d(0,0), 0.5);//this.rotation); //Rotate points to reflect object rotation
             absolutePoints[i].add(this.centerPosition); //Find point positions relative to global coordniate system
         }
 
