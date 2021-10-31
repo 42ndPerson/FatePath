@@ -29,7 +29,7 @@ public class SimulatorTests {
 
         frame.setVisible(true);
 
-        for (double i = 0; i < 300000; i += 1) {
+        for (double i = 0; i < 300000; i += 0.01) {
             canvas.getDrawableStack()[0].setRotation(i);
 
             frame.repaint();
