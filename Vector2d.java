@@ -19,17 +19,23 @@ public class Vector2d {
   }
 
   //Object Arithmatic Methods
-  public void add(Vector2d vector) {
+  public Vector2d add(Vector2d vector) {
     this.x += vector.x;
     this.y += vector.y;
+
+    return this; //Allows for chaining methods
   }
-  public void subtract(Vector2d vector) {
+  public Vector2d subtract(Vector2d vector) {
     this.x -= vector.x;
     this.y -= vector.y;
+
+    return this; //Allows for chaining methods
   }
-  public void multiply(double factor) {
+  public Vector2d multiply(double factor) {
     this.x *= factor;
     this.y *= factor;
+
+    return this; //Allows for chaining methods
   }
 
   //Static Arithmatic Methods
@@ -102,6 +108,11 @@ public class Vector2d {
   //Average
   public static Vector2d biasedAverage(Vector2d pointA, Vector2d pointB, double bias) {
     return Vector2d.add(Vector2d.multiply(pointA, 1-bias), Vector2d.multiply(pointB, bias));
+  }
+
+  //Utility
+  public Vector2d clone() {
+    return new Vector2d(this.x,this.y);
   }
 
   //Debug

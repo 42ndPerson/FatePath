@@ -15,7 +15,10 @@ public class DrawableObject {
     public Vector2d getCenterPos() { return this.centerPosition; }
     public double getRotation() { return this.rotation; }
     public Vector2d[] getPoints() { 
-        Vector2d[] absolutePoints = this.relativePoints;
+        Vector2d[] absolutePoints = new Vector2d[this.relativePoints.length];
+        for (int i = 0; i < this.relativePoints.length; i++) {
+            absolutePoints[i] = this.relativePoints[i].clone(); //Must clone points or otherwise subsequent code ment to convert from relative to actual will modify source relative points
+        }
 
         for (int i = 0; i < absolutePoints.length; i++) {
             absolutePoints[i].rotateAround(new Vector2d(0,0), this.rotation); //Rotate points to reflect object rotation
