@@ -8,7 +8,8 @@ public class Canvas extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         for (DrawableObject drawable : this.drawableStack) {
-            System.out.println("A");
+            System.out.println("y:" + drawable.getYCoords());
+            System.out.println("x:" + drawable.getXCoords());
             if (drawable.isFilled()) {
                 g.drawPolygon(drawable.getYCoords(), drawable.getXCoords(), drawable.getPointCount()); //X and Y are flipped to match coordinates of GUI
             }
