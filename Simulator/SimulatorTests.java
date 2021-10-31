@@ -22,15 +22,17 @@ public class SimulatorTests {
             true
         );
         canvas.appendToDrawableStack(square);
+
+        canvas.getDrawableStack()[0].setRotation(0.7);
         
         frame.getContentPane().add(canvas);
 
         frame.setVisible(true);
 
-        for (double i = 0; i < 3000; i += 0.5) {
+        /*for (double i = 0; i < 3000; i += 0.5) {
             canvas.getDrawableStack()[0].setRotation(i);
 
             frame.repaint();
-        }
+        }*/
     }
 }
