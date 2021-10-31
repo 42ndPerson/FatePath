@@ -29,10 +29,11 @@ public class SimulatorTests {
 
         frame.setVisible(true);
 
-        /*for (double i = 0; i < 3000; i += 0.5) {
+        for (double i = 0; i < 300; i += 1) {
             canvas.getDrawableStack()[0].setRotation(i);
 
             frame.repaint();
-        }*/
+            System.out.println("A");
+        }
     }
 }
