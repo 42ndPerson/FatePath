@@ -10,14 +10,15 @@ public class Canvas extends JPanel {
         for (DrawableObject drawable : this.drawableStack) {
             System.out.println("y:" + drawable.getYCoords()[0]);
             System.out.println("x:" + drawable.getXCoords()[0]);
+            drawable.getYCoords()
+            System.out.println("y:" + drawable.getYCoords()[0]);
+            System.out.println("x:" + drawable.getXCoords()[0]);
             if (drawable.isFilled()) {
                 g.drawPolygon(drawable.getYCoords(), drawable.getXCoords(), drawable.getPointCount()); //X and Y are flipped to match coordinates of GUI
             }
             else {
                 g.drawPolyline(drawable.getYCoords(), drawable.getXCoords(), drawable.getPointCount()); //X and Y are flipped to match coordinates of GUI
             }
-            System.out.println("y:" + drawable.getYCoords()[0]);
-            System.out.println("x:" + drawable.getXCoords()[0]);
         }
     }
 
