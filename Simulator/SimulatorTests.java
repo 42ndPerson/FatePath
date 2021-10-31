@@ -33,6 +33,7 @@ public class SimulatorTests {
             canvas.getDrawableStack()[0].setRotation(i);
 
             frame.repaint();
+            Thread.sleep(40);
             //System.out.println("A");
         }
     }
