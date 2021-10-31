@@ -10,7 +10,7 @@ public class Canvas extends JPanel {
         for (DrawableObject drawable : this.drawableStack) {
             System.out.println("y:" + drawable.getYCoords()[0]);
             System.out.println("x:" + drawable.getXCoords()[0]);
-            drawable.getYCoords()
+            drawable.getYCoords();
             System.out.println("y:" + drawable.getYCoords()[0]);
             System.out.println("x:" + drawable.getXCoords()[0]);
             if (drawable.isFilled()) {
