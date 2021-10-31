@@ -33,7 +33,7 @@ public class SimulatorTests {
             canvas.getDrawableStack()[0].setRotation(i);
 
             frame.repaint();
-            try { Thread.sleep(40); } catch (Error e) {}
+            try { Thread.sleep(40); } catch (InterruptedException e) {}
             //System.out.println("A");
         }
     }
