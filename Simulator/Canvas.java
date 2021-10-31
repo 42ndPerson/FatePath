@@ -16,6 +16,8 @@ public class Canvas extends JPanel {
             else {
                 g.drawPolyline(drawable.getYCoords(), drawable.getXCoords(), drawable.getPointCount()); //X and Y are flipped to match coordinates of GUI
             }
+            System.out.println("y:" + drawable.getYCoords()[0]);
+            System.out.println("x:" + drawable.getXCoords()[0]);
         }
     }
 
