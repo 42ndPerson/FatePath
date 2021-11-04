@@ -30,7 +30,7 @@ public class RobotSimulator {
     public void frameUpdate() {
         //robots[0].update();
         canvas.repaint();
-        System.out.println(robot.)
+        //System.out.println(robot.)
     }
 
     public void run() {
