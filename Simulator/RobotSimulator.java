@@ -27,7 +27,7 @@ public class RobotSimulator {
     public Canvas getCanvas() {
         return this.canvas;
     }
-    public frameUpdate() {
+    public void frameUpdate() {
         robots[0].update();
         canvas.repaint();
     }
