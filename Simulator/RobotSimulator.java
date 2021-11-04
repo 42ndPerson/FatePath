@@ -35,6 +35,6 @@ public class RobotSimulator {
                 this.robots[0].update();
                 this.canvas.repaint();
             }
-        })
+        });
     }
 }
