@@ -27,14 +27,16 @@ public class RobotSimulator {
     public Canvas getCanvas() {
         return this.canvas;
     }
+    public frameUpdate() {
+        this.robots[0].update();
+        this.canvas.repaint();
+    }
 
     public void run() {
         Timer timer = new Timer(16, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                getCanvas();
-                //this.robots[0].update();
-                //this.canvas.repaint();
+                frameUpdate();
             }
         });
         timer.start();
