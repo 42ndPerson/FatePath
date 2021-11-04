@@ -31,7 +31,7 @@ public class RobotSimulator {
     public void run() {
         Timer timer = new Timer(16, new ActionListener() {
             @Override
-            public void actionPreformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) {
                 this.robots[0].update();
                 this.canvas.repaint();
             }
