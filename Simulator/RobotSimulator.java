@@ -20,8 +20,8 @@ public class RobotSimulator {
                     13.0,
                     true
                 )
-            );
-        }   
+            )
+        };
     }
 
     public Canvas getCanvas() {
