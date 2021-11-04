@@ -22,6 +22,7 @@ public class RobotSimulator {
                 )
             )
         };
+        this.canvas.appendToDrawableStack(this.robots[0].getDrawable());
     }
 
     public Canvas getCanvas() {
