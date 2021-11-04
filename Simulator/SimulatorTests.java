@@ -15,6 +15,8 @@ public class SimulatorTests {
 
         frame.setVisible(true);
 
+        simulator.run();
+
         /*Canvas canvas = new Canvas();
         DrawableObject square = new DrawableObject(
             new Vector2d(200,200),
