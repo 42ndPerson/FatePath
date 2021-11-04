@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 
 public class SimulatorTests {
@@ -9,7 +10,12 @@ public class SimulatorTests {
         frame.setSize(600,600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        Canvas canvas = new Canvas();
+        RobotSimulator simulator = new RobotSimulator();
+        frame.getContentPane().add(simulator.getCanvas());
+
+        frame.setVisible(true);
+
+        /*Canvas canvas = new Canvas();
         DrawableObject square = new DrawableObject(
             new Vector2d(200,200),
             new Vector2d[]{
@@ -35,6 +41,6 @@ public class SimulatorTests {
             frame.repaint();
             try { Thread.sleep(40); } catch (InterruptedException e) {}
             //System.out.println("A");
-        }
+        }*/
     }
 }

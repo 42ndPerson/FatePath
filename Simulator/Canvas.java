@@ -2,7 +2,7 @@ import java.util.Arrays;
 import java.awt.*;
 import javax.swing.*;
 
-public class Canvas extends JPanel {
+public class Canvas extends JPanel { //Canvas simply draws DrawableObjects.  No simulation is handled here.
     private DrawableObject[] drawableStack = {};
 
     @Override
