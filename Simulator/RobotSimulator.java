@@ -12,10 +12,10 @@ public class RobotSimulator {
                 new DrawableObject(
                     new Vector2d(200,200),
                     new Vector2d[]{
-                        new Vector2d(3*7,3*7),
-                        new Vector2d(-3*7,3*7),
-                        new Vector2d(-3*7,-3*7),
-                        new Vector2d(3*7,-3*7)
+                        new Vector2d(2*7,3*7),
+                        new Vector2d(-2*7,3*7),
+                        new Vector2d(-2*7,-3*7),
+                        new Vector2d(2*7,-3*7)
                     },
                     13.0,
                     true
@@ -29,9 +29,8 @@ public class RobotSimulator {
         return this.canvas;
     }
     public void frameUpdate() {
-        robots[0].update();
+        robots[0].update(); //"this" doesn't work here for some reason
         canvas.repaint();
-        //System.out.println(robot.)
     }
 
     public void run() {
